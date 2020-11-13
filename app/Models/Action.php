@@ -10,7 +10,11 @@ class Action extends Model
 {
     use HasFactory;
 
-    public function task(): HasMany
+    protected $fillable = [
+        'name'
+    ];
+
+    public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
     }

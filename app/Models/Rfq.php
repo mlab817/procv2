@@ -18,4 +18,9 @@ class Rfq extends Model
     {
         return $this->belongsToMany(PrPras::class);
     }
+
+    public function pr_prases(): BelongsToMany
+    {
+        return $this->belongsToMany(PrPras::class);
+    }
 }

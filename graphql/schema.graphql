@@ -75,6 +75,7 @@ type Staff {
 	user: User @belongsTo
 	created_at: String
 	updated_at: String
+    linked: Boolean
 }
 
 type Task {
