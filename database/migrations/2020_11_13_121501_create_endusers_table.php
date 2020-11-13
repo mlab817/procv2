@@ -15,6 +15,9 @@ class CreateEndusersTable extends Migration
     {
         Schema::create('endusers', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('acronym')->nullable();
+            $table->string('procurement_coordinator')->nullable();
             $table->timestamps();
         });
     }

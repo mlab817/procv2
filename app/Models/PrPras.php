@@ -4,18 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Rfq extends Model
+class PrPras extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-      'name'
+    	'number',
+			'details',
+			'enduser_id',
     ];
 
-    public function pr_prases(): BelongsToMany
+    public function enduser(): BelongsTo
     {
-        return $this->belongsToMany(PrPras::class);
+    	return $this->belongsTo(Enduser::class);
     }
 }
