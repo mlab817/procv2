@@ -42,10 +42,12 @@
                 <x-jet-button class="ml-4">
                     {{ __('Login') }}
                 </x-jet-button>
+            </div>
 
-                <x-jet-button class="ml-4" href="{{ url('auth/google') }}">
-                    {{ __('Login with Google') }}
-                </x-jet-button>
+            <div class="flex justify-end items-center mt-4">
+                <a href="{{ url('auth/google') }}" style="margin-top: 0px !important;background: green;color: #ffffff;padding: 5px;border-radius:7px;" class="ml-2 btn-google">
+                    <strong>Login With Google</strong>
+                </a>
             </div>
         </form>
     </x-jet-authentication-card>
