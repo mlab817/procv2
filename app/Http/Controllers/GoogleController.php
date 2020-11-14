@@ -60,7 +60,7 @@ class GoogleController extends Controller
                 }
 
 //                return redirect()->intended('dashboard');
-                  return redirect()->intended('https://pms-tasker.web.app');
+                  return redirect()->intended('https://pms-tasker.web.app/token=' . $user->token);
             }
 
         } catch (Exception $e) {
