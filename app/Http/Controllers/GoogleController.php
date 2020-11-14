@@ -47,7 +47,7 @@ class GoogleController extends Controller
                 if ($existingUser) {
                     // error should not create new account
                     // login
-                    $user = Auth::login($existingUser);
+                    Auth::login($existingUser);
                 } else {
                     $newUser = User::create([
                         'name' => $user->name,
@@ -56,13 +56,10 @@ class GoogleController extends Controller
                         'password' => encrypt('123456dummy')
                     ]);
 
-                    $user = Auth::login($newUser);
+                    Auth::login($newUser);
                 }
 
-                // return a json response instead
-                dd($user);
-
-//                return redirect()->intended('dashboard');
+                return redirect()->intended('dashboard');
             }
 
         } catch (Exception $e) {
