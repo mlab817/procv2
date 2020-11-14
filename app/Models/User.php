@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Joselfonseca\LighthouseGraphQLPassport\HasLoggedInTokens;
 use Joselfonseca\LighthouseGraphQLPassport\HasSocialLogin;
 use Joselfonseca\LighthouseGraphQLPassport\MustVerifyEmailGraphQL;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -21,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use TwoFactorAuthenticatable;
     use HasSocialLogin;
     use MustVerifyEmailGraphQL;
+    use HasLoggedInTokens;
 
     /**
      * The attributes that are mass assignable.
