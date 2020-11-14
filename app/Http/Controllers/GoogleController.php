@@ -60,7 +60,7 @@ class GoogleController extends Controller
                 }
 
                 // return a json response instead
-                return $user;
+                dd($user);
 
 //                return redirect()->intended('dashboard');
             }
