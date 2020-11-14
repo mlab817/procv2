@@ -35,14 +35,6 @@ type Query {
     pr_pras(id: ID! @eq): PrPras @find
 }
 
-type User {
-    id: ID!
-    name: String!
-    email: String!
-    created_at: DateTime!
-    updated_at: DateTime!
-}
-
 type Document {
 	id: ID
 	name: String
