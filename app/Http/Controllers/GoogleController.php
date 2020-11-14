@@ -43,7 +43,7 @@ class GoogleController extends Controller
             } else {
 
                 $existingUser = User::where('email', $email)->first();
-                
+
                 if ($existingUser) {
                     // error should not create new account
                     // login
