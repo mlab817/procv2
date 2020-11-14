@@ -30,6 +30,8 @@ class GoogleController extends Controller
 
             $user = Socialite::driver('google')->stateless()->user();
 
+            $email = $user->getEmail();
+
             $finduser = User::where('google_id', $user->id)->first();
 
             if($finduser){
@@ -40,28 +42,28 @@ class GoogleController extends Controller
 
             } else {
 
-                $newUser = User::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'google_id'=> $user->id,
-                    'password' => encrypt('123456dummy')
-                ]);
+                $existingUser = User::where('email', $email)->first();
+                
+                if ($existingUser) {
+                    // error should not create new account
+                    // login
+                    Auth::login($existingUser);
+                } else {
+                    $newUser = User::create([
+                        'name' => $user->name,
+                        'email' => $user->email,
+                        'google_id'=> $user->id,
+                        'password' => encrypt('123456dummy')
+                    ]);
 
-                Auth::login($newUser);
+                    Auth::login($newUser);
+                }
 
                 return redirect()->intended('dashboard');
             }
 
         } catch (Exception $e) {
-            // dd($e->getCode());
-            $errorCode = $e->getCode();
-            if ($errorCode == '23505') {
-                // duplicate account exists
-                return redirect('/auth/google')->with(['err'=>['OOPS! This email is already registered using other provider.']]);
-            } else {
-                // redirect with error
-                return redirect('/auth/google')->with(['err'=>['OOPS! ' . $e->getMessage() ]]);
-            }
+            // uncaught error
         }
     }
 }
