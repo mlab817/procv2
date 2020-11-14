@@ -16,7 +16,8 @@ class GoogleController extends Controller
      */
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->stateless()->redirect();
+//        return Socialite::driver('google')->stateless()->redirect();
+        return Socialite::driver('google')->redirect();
     }
 
     /**
@@ -28,7 +29,7 @@ class GoogleController extends Controller
     {
         try {
 
-            $user = Socialite::driver('google')->stateless()->user();
+            $user = Socialite::driver('google')->user();
 
             $email = $user->getEmail();
 
