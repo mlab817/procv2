@@ -16,7 +16,6 @@ class GoogleController extends Controller
      */
     public function redirectToGoogle()
     {
-//        return Socialite::driver('google')->stateless()->redirect();
         return Socialite::driver('google')->redirect();
     }
 
@@ -61,7 +60,6 @@ class GoogleController extends Controller
                 }
 
                 return redirect()->intended('dashboard');
-//                  return redirect()->intended('dash' . $user->token);
             }
 
         } catch (Exception $e) {
