@@ -53,7 +53,15 @@ class GoogleController extends Controller
             }
 
         } catch (Exception $e) {
-            dd($e->getCode());
+            // dd($e->getCode());
+            $errorCode = $e->getCode();
+            if ($errorCode == '23505') {
+                // duplicate account exists
+                return redirect('/auth/google')->with(['err'=>['OOPS! This email is already registered using other provider.']]);
+            } else {
+                // redirect with error
+                return redirect('/auth/google')->with(['err'=>['OOPS! ' . $e->getMessage() ]]);
+            }
         }
     }
 }
