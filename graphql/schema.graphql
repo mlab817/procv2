@@ -4,6 +4,89 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
+type Document {
+    id: ID
+    name: String
+    description: String
+    created_at: String
+    updated_at: String
+}
+
+type Enduser {
+    id: ID
+    name: String
+    acronym: String
+    procurement_coordinator: String
+    created_at: String
+    updated_at: String
+}
+
+type Action {
+    id: ID
+    name: String
+    created_at: String
+    updated_at: String
+}
+
+type Staff {
+    id: ID
+    name: String
+    display_name: String
+    user_id: ID
+    user: User @belongsTo
+    created_at: String
+    updated_at: String
+    linked: Boolean
+}
+
+type Task {
+    id: ID
+    action_id: ID
+    action: Action @belongsTo
+    staff_id: ID
+    staff: Staff @belongsTo
+    completed: Boolean
+    document_id: ID
+    document: Document @belongsTo
+    enduser_id: ID
+    enduser: Enduser @belongsTo
+    details: String
+    remarks: String
+    status_id: ID
+    status: Status @belongsTo
+    completed_at: String
+    created_at: String
+    updated_at: String
+    deleted_at: String
+    pr_pras: PrPras @belongsToMany
+}
+
+type Rfq {
+    id: ID
+    number: String
+    name: String
+    created_at: String
+    updated_at: String
+    pr_prases: [PrPras] @belongsToMany
+}
+
+type Status {
+    id: ID
+    name: String
+    created_at: String
+    updated_at: String
+}
+
+type PrPras {
+    id: ID
+    number: String
+    details: String
+    enduser_id: ID
+    enduser: Enduser @belongsTo
+    created_at: String
+    updated_at: String
+}
+
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
@@ -21,8 +104,8 @@ type Query {
     staff(id: ID! @eq): Staff @find
 
     tasks: [Task] @all
-    ongoingTasks: [Task] @all @scopes(['ongoing'])
-    completedTasks: [Task] @all @scopes(['completed'])
+    ongoingTasks: [Task] @all(scopes: ["ongoing"])
+    completedTasks: [Task] @all(scopes: ["completed"])
     task(id: ID! @eq): Task @find
 
     rfqs: [Rfq] @all
@@ -35,85 +118,4 @@ type Query {
     pr_pras(id: ID! @eq): PrPras @find
 }
 
-type Document {
-	id: ID
-	name: String
-	description: String
-	created_at: String
-	updated_at: String
-}
 
-type Enduser {
-	id: ID
-	name: String
-	acronym: String
-	procurement_coordinator: String
-	created_at: String
-	updated_at: String
-}
-
-type Action {
-	id: ID
-	name: String
-	created_at: String
-	updated_at: String
-}
-
-type Staff {
-	id: ID
-	name: String
-	display_name: String
-	user_id: ID
-	user: User @belongsTo
-	created_at: String
-	updated_at: String
-    linked: Boolean
-}
-
-type Task {
-	id: ID
-	action_id: ID
-	action: Action @belongsTo
-	staff_id: ID
-	staff: Staff @belongsTo
-	completed: Boolean
-	document_id: ID
-	document: Document @belongsTo
-	enduser_id: ID
-	enduser: Enduser @belongsTo
-	details: String
-	remarks: String
-	status_id: ID
-	status: Status @belongsTo
-	completed_at: String
-	created_at: String
-	updated_at: String
-	deleted_at: String
-	pr_pras: PrPras @belongsToMany
-}
-
-type Rfq {
-	id: ID
-    number: String
-	name: String
-	created_at: String
-	updated_at: String
-    pr_prases: [PrPras] @belongsToMany
-}
-
-type Status {
-	id: ID
-	name: String
-	created_at: String
-	updated_at: String
-}
-
-type PrPras {
-	id: ID
-	number: String
-	details: String
-	enduser_id: ID
-	enduser: Enduser @belongsTo
-	created_at: String
-	updated_at: String
-}
