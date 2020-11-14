@@ -38,7 +38,8 @@ class GoogleController extends Controller
 
                 return redirect()->intended('dashboard');
 
-            }else{
+            } else {
+
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
@@ -52,7 +53,7 @@ class GoogleController extends Controller
             }
 
         } catch (Exception $e) {
-            dd($e->getMessage());
+            dd($e);
         }
     }
 }
