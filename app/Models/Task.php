@@ -23,7 +23,7 @@ class Task extends Model
 			'remarks', // any other details
 			'status_id', // current status of the task
 			'completed_at', //
-			'created_by'
+			'created_by',
     ];
 
 	/**
@@ -37,7 +37,7 @@ class Task extends Model
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-    public function enduser()
+    public function enduser(): BelongsTo
     {
         return $this->belongsTo(Enduser::class);
     }

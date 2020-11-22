@@ -11,6 +11,9 @@ type User {
     id: ID!
     name: String!
     email: String!
+
+    "Fetch all tasks"
+    tasks: [Task] @hasMany
 }
 
 type AuthPayload {
