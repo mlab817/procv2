@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasModifier;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,48 +11,66 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
+    use HasModifier;
 
     protected $fillable = [
-			'action_id',
-			'staff_id',
-			'completed',
-			'document_id',
-			'enduser_id',
-			'details',
-			'remarks',
-			'status_id',
-			'completed_at',
+			'action_id', // action required
+			'user_id', // staff assigned
+			'completed', //if completed or not
+			'details', // details of the assignment
+			'remarks', // any other details
+			'status_id', // current status of the task
+			'completed_at', //
 			'created_by'
     ];
 
-    public function pr_prases(): BelongsToMany
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+    public function procurement_requests(): BelongsToMany
     {
-    	return $this->belongsToMany(PrPras::class);
+    	return $this->belongsToMany(ProcurementRequest::class);
     }
 
-    public function creator(): BelongsTo
-    {
-    	return $this->belongsTo(User::class,'created_by','id');
-    }
-
-    public function document(): BelongsTo
-    {
-        return $this->belongsTo(Document::class);
-    }
-
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
     public function enduser()
     {
         return $this->belongsTo(Enduser::class);
     }
 
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);
     }
 
-    public function staff(): BelongsTo
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Staff::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function getCompletedAttribute(): bool
+    {
+    	return (bool) $this->completed_at;
+    }
+
+    public function scopeOwn($query)
+    {
+    	$user = auth()->user()->staff_id;
+
+    	if (! $user) {
+    		return $query;
+	    }
+
+    	return $query->where('staff_id', $user);
     }
 }

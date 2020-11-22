@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Rfq extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $fillable = [
-      'name'
-    ];
+	protected $fillable = [
+		'name'
+	];
 
-    public function pr_prases(): BelongsToMany
-    {
-        return $this->belongsToMany(PrPras::class);
-    }
+	public function procurement_requests(): BelongsToMany
+	{
+		return $this->belongsToMany(ProcurementRequest::class);
+	}
 }

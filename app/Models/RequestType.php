@@ -6,18 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Enduser extends Model
+class RequestType extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-	    'name',
-		'slug',
-		'acronym',
-    ];
-
-    public function tasks(): HasMany
+    public function procurement_requests(): HasMany
     {
-        return $this->hasMany(Task::class);
+    	return $this->hasMany(ProcurementRequest::class);
     }
 }

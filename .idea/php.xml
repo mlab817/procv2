@@ -140,6 +140,8 @@
       <path value="$PROJECT_DIR$/vendor/bacon/bacon-qr-code" />
       <path value="$PROJECT_DIR$/vendor/jenssegers/agent" />
       <path value="$PROJECT_DIR$/vendor/jaybizzle/crawler-detect" />
+      <path value="$PROJECT_DIR$/vendor/pusher/pusher-php-server" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/sodium_compat" />
     </include_path>
   </component>
   <component name="PhpUnit">

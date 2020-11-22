@@ -43,3 +43,8 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+Route::get('/broadcast', function () {
+	event(new \App\Events\MyEvent('hello world'));
+	return 'Sent event';
+});

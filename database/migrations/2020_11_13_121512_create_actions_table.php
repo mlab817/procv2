@@ -16,7 +16,9 @@ class CreateActionsTable extends Migration
         Schema::create('actions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
