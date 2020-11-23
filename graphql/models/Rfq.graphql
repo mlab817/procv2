@@ -2,6 +2,8 @@ type Rfq {
     id: ID
     number: String
     name: String
+    opening_at: String
+    opened_at: String
     created_at: String
     updated_at: String
     procurement_requests: [ProcurementRequest] @belongsToMany

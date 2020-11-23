@@ -25,6 +25,7 @@ class CreateTasksTable extends Migration
             $table->text('details')->nullable();
             $table->string('remarks')->nullable();
             $table->foreignId('status_id')->default(1); // default to ongoing
+            $table->timestamp('due_at')->nullable();
             $table->datetime('completed_at')->nullable();
 	        $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
 	        $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('set null');

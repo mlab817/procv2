@@ -29,7 +29,11 @@ class RequestTypesTableSeeder extends Seeder
         ];
 
         foreach ($seeds as $seed) {
-        	RequestType::create($seed);
+        	RequestType::create([
+        	    'name' => $seed['name'],
+                'acronym' => $seed['acronym'],
+                'slug' => $seed['slug']
+            ]);
         }
     }
 }

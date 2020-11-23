@@ -22,6 +22,7 @@ class Task extends Model
 			'details', // details of the assignment
 			'remarks', // any other details
 			'status_id', // current status of the task
+            'due_at',
 			'completed_at', //
 			'created_by',
     ];
@@ -72,5 +73,13 @@ class Task extends Model
 	    }
 
     	return $query->where('staff_id', $user);
+    }
+
+    public function getDueDateAttribute()
+    {
+        if ($this->due_at) {
+            return $this->due_at->format('d-m-Y');
+        }
+        return null;
     }
 }

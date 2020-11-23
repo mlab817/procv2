@@ -11,6 +11,7 @@ type Task {
     remarks: String
     status_id: ID
     status: Status @belongsTo
+    due_at: String
     completed_at: String
     creator: User @belongsTo
     updater: User @belongsTo
