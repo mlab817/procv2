@@ -13,6 +13,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Thomasjohnkane\Snooze\Traits\SnoozeNotifiable;
 
 class User extends Authenticatable
 {
@@ -25,6 +26,7 @@ class User extends Authenticatable
 //    use MustVerifyEmailGraphQL;
     use HasLoggedInTokens;
     use HasSocialLogin;
+    use SnoozeNotifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -64,4 +66,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function routeNotificationForDiscord()
+    {
+        return $this->discord_private_channel_id ;
+    }
 }

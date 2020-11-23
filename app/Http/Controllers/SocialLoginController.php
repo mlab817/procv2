@@ -3,20 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
-class GoogleController extends Controller
+class SocialLoginController extends Controller
 {
+
+    public $provider;
+
+    public function __construct($provider)
+    {
+        return $this->provider = $provider;
+    }
+
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param $provider
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function redirectToGoogle()
+    public function redirectToProvider()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver($this->provider)->redirect();
     }
 
     /**
@@ -24,15 +32,15 @@ class GoogleController extends Controller
      *
      * @return void
      */
-    public function handleGoogleCallback()
+    public function handleCallback()
     {
         try {
 
-            $user = Socialite::driver('google')->user();
+            $user = Socialite::driver($this->provider)->user();
 
             $email = $user->getEmail();
 
-            $finduser = User::where('google_id', $user->id)->first();
+            $finduser = User::where($this->provider. '_id', $user->id)->first();
 
             if($finduser){
 
@@ -52,7 +60,7 @@ class GoogleController extends Controller
                     $newUser = User::create([
                         'name' => $user->name,
                         'email' => $user->email,
-                        'google_id'=> $user->id,
+                        $this->provider . '_id'=> $user->id,
                         'password' => encrypt('123456dummy')
                     ]);
 

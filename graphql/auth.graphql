@@ -12,6 +12,9 @@ type User {
     name: String!
     email: String!
 
+    discord_user_id: String
+    discord_private_channel_id: String
+
     "Fetch all tasks"
     tasks: [Task] @hasMany
 }

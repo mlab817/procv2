@@ -2,3 +2,9 @@ extend type Query {
     users: [User!]! @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
 }
+
+extend type Mutation {
+    configureUserDiscordSettings(
+        discord_user_id: String
+    ): User @field(resolver: "ConfigureUserDiscordSettings") @guard(with:["api"])
+}

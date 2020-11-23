@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
-use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\SocialLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +41,10 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('status', 'verification-link-sent');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
-Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+Route::get('auth/{provider}', [SocialLoginController::class, 'redirectToProvider'])
+    ->where(['provider' => 'facebook|google|twitter|discord']);
+Route::get('auth/{provider}/callback', [SocialLoginController::class, 'handleCallback'])
+    ->where(['provider' => 'facebook|google|twitter|discord']);
 
 Route::get('/broadcast', function () {
 	event(new \App\Events\MyEvent('hello world'));
