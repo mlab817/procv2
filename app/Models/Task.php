@@ -75,6 +75,16 @@ class Task extends Model
     	return $query->where('staff_id', $user);
     }
 
+    public function scopeOngoing($query)
+    {
+      return $query->where('status_id', 1);
+    }
+
+    public function scopeCompleted($query)
+    {
+      return $query->where('status_id', 2);
+    }
+
     public function getDueDateAttribute()
     {
         if ($this->due_at) {
@@ -82,4 +92,5 @@ class Task extends Model
         }
         return null;
     }
+    
 }
